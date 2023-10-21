@@ -3,6 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-@app.get("/")
-def greetings():
+@app.get("/predict")
+def predict():
     return {"greeting":"Hello World!"}
