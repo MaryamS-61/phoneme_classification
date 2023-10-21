@@ -1,13 +1,14 @@
 import numpy as np
 import pandas as pd
 import librosa
-from one_sample_preprocessing import get_audio
+#from one_sample_preprocessing import get_audio
+
 
 def compute_spectrogram(wav_file):
 
-    y, sr = librosa.load(wav_file, sr=8000)
+    #y, sr = librosa.load(wav_file, sr=8000)
     # Compute the Short-Time Fourier Transform (STFT)
-    D = librosa.stft(y)
+    D = librosa.stft(wav_file)
 
     # Calculate the magnitude (amplitude) of the STFT
     S = np.abs(D)
@@ -56,10 +57,7 @@ def zero_padding(data):
     zero_padded_mask = np.zeros(new_shape)
 
     # Copy the original array into the center of the zero-padded array
-    zero_padded_mask[:, pad_rows:-pad_rows, pad_cols:-pad_cols] = zero_padded_matrix
+    zero_padded_mask[pad_rows:-pad_rows, pad_cols:-pad_cols] = zero_padded_matrix
     return zero_padded_mask
 
-wav_file = get_audio()
-spectrogram = compute_spectrogram(wav_file)
-normalized_spectrogram = normalization(spectrogram)
-cnn_input = zero_padding(normalized_spectrogram)
+#wav_file = get_audio()
