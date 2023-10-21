@@ -1,8 +1,7 @@
 import numpy as np
 import pandas as pd
 import librosa
-
-from sklearn.preprocessing import LabelEncoder
+from one_sample_preprocessing import get_audio
 
 def compute_spectrogram(wav_file):
 
@@ -59,3 +58,8 @@ def zero_padding(data):
     # Copy the original array into the center of the zero-padded array
     zero_padded_mask[:, pad_rows:-pad_rows, pad_cols:-pad_cols] = zero_padded_matrix
     return zero_padded_mask
+
+wav_file = get_audio()
+spectrogram = compute_spectrogram(wav_file)
+normalized_spectrogram = normalization(spectrogram)
+cnn_input = zero_padding(normalized_spectrogram)
