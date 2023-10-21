@@ -10,11 +10,6 @@ from keras.models import load_model
 
 app = FastAPI()
 
-<<<<<<< HEAD
-@app.get("/predict")
-def predict():
-    return {"greeting":"Hello World!"}
-=======
 @app.post("/")
 async def predict(bytes: bytes=File(...)):
     #      with open(os.path.join("audio_uploads", bytes.name), "wb") as f:
@@ -41,7 +36,7 @@ async def predict(bytes: bytes=File(...)):
     #     wav_file.setframerate(framerate)
     #     wav_file.setnframes(nframes)
     #     wav_file.setcomptype(comptype, compname)
-        
+
     #     # Write the audio data to the WAV file
     #     wav_file.writeframes(bytes)
     # #compute_spectrogram(wav_file)
@@ -56,7 +51,7 @@ async def predict(bytes: bytes=File(...)):
     # print(cnn_input)
     # print(cnn_input.shape)
     # print(spectrogram)
-    
+
     file = "/home/m7rudloff/code/MaryamS-61/phoneme_classification/Crema_happy_cnn_input.pkl"
     with open(file, 'rb') as file:
         loaded_df = pickle.load(file)
@@ -67,4 +62,3 @@ async def predict(bytes: bytes=File(...)):
     classes = ["ANG", "DIS", "FEA", "HAP", "NEU", "SAD"]
     result = classes[np.argmax(y_pred[0])]
     return {"result":result}
->>>>>>> 48c962f (trying to merge everything)

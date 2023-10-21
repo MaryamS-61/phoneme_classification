@@ -130,123 +130,6 @@ for name in names:
     st.sidebar.markdown(f"<p class='sidebar-names'>{name}</p>", unsafe_allow_html=True)
 
 
-
-
-
-
-
-
-
-
-# Define the emotions dictionary at the global level
-emotions = {
-    "ANG": ("Anger 😡", "angry.gif"),  # Add the path to your angry emoji GIF
-    "DIS": ("Disgust 🤢", "disgust.gif"),  # Add the path to your disgust emoji GIF
-    "FEA": ("Fear 😱", "fear.gif"),  # Add the path to your fear emoji GIF
-    "HAP": ("Happiness 😀", "happy.gif"),  # Add the path to your happy emoji GIF
-    "NEU": ("Neutral 😐", "neutral.gif"),  # Add the path to your neutral emoji GIF
-    "SAD": ("Sadness 😭", "sad.gif")  # Add the path to your sad emoji GIF
-}
-
-# Define the HTML and CSS styling for the fixed header
-header_html = """
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
-        .header-container {
-            background-color: #B22222;
-            padding: 35px; /* Increase padding to make it taller */
-            text-align: center;
-            width: 37%;
-            color: #FFFFFF; /* Set text color to white */
-            height: 150px; /* Adjust height to make it taller */
-            position: fixed; /* Make the header fixed at the top */
-            top: 0; /* Stick it to the top */
-            z-index: 1000; /* Adjust the z-index if needed */
-        }
-        .header-title {
-            font-family: 'Merriweather', serif;
-            font-size: 28px;
-            color: #FFFFFF; /* Set text color to white */
-        }
-        .header-subtitle {
-            font-family: 'Arial', sans-serif;
-            font-size: 18px;
-            color: #FFFFFF; /* Set text color to white */
-        }
-        .content {
-            margin-top: 170px; /* Adjust the margin to move content below the header */
-        }
-    </style>
-    <div class="header-container">
-        <h1 class="header-title">Emotion Speech Recognition</h1>
-        <h3 class="header-subtitle">Data Science Le Wagon Bootcamp Part-time</h3>
-    </div>
-"""
-
-    url = 'https://phoneme-service-wifbxua65a-ew.a.run.app'
-    request = requests.post(url, files = {"bytes":audio_bytes})
-
-# Define the CSS styling for the fixed sidebar with the image
-sidebar_html = """
-    <style>
-        .fixed-sidebar {
-            position: fixed;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-    </style>
-"""
-
-# Define the prediction_emotion_feedback function
-def prediction_emotion_feedback(prediction):
-    if prediction in emotions:
-        emotion_name, emoji_path = emotions[prediction]
-        st.write("The detected emotion in the audio is:", emotion_name)
-
-        # Display the spectrogram using Matplotlib
-        st.pyplot(plt)
-
-        # Display the emoji and emotion name in the fixed sidebar
-        st.sidebar.image(emoji_path, caption=emotion_name, use_column_width=True, output_format='auto')
-
-# Render the HTML in Streamlit
-st.markdown(header_html, unsafe_allow_html=True)
-
-# Add content below the header
-st.write("This is your content below the header.")
-
-# Width of the original image (replace with the actual width)
-original_width = 800
-
-# Calculate half of the original width
-half_width = original_width // 3
-
-# Create a centered sidebar
-st.sidebar.image("lewagon.png", width=half_width)
-
-# List of dummy names
-names = ["Maryam Sadreddini", "Sina Naghizadeh", "Anna Snizhko", "Martin Jahr"]
-
-# Define the HTML and CSS styling for centering, making names bold, and increasing font size
-style_html = """
-    <style>
-        .sidebar-names {
-            text-align: center;
-            font-weight: bold;
-            font-size: 16px;
-        }
-    </style>
-"""
-
-# Render the HTML in Streamlit to apply CSS styling
-st.sidebar.markdown(style_html, unsafe_allow_html=True)
-
-# Display the names in the sidebar with the applied styling
-for name in names:
-    st.sidebar.markdown(f"<p class='sidebar-names'>{name}</p>", unsafe_allow_html=True)
-
-
 # Create a folder to store uploaded audio files (if it doesn't exist)
 if not os.path.exists("audio_uploads"):
     os.makedirs("audio_uploads")
@@ -282,7 +165,7 @@ if audio_file is not None:
 
 
     url = 'https://phoneme-service-wifbxua65a-ew.a.run.app'
-    request = requests.post(url, files = {"bytes":audio_file.name})
+    request = requests.post(url, files = {"bytes":audio_bytes})
 
 
 
