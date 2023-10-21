@@ -2,10 +2,14 @@ pytest
 pylint
 ipdb
 jupyterlab
-numpy
+numpy 1.25.0
 pandas
 matplotlib
 seaborn
 scikit-learn
 uvicorn
 fastapi
+google-cloud-storage
+librosa
+librosa.display
+requests
