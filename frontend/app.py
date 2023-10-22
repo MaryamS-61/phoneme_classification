@@ -5,6 +5,7 @@ import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
 import requests
+import json
 
 # Define the emotions dictionary at the global level
 emotions = {
@@ -103,10 +104,11 @@ st.write("This is your content below the header.")
 original_width = 800
 
 # Calculate half of the original width
-half_width = original_width // 3
+half_width = original_width // 5
 
 # Create a centered sidebar
 st.sidebar.image("lewagon.png", width=half_width)
+
 
 # List of dummy names
 names = ["Maryam Sadreddini", "Sina Naghizadeh", "Anna Snizhko", "Martin Jahr"]
@@ -119,7 +121,15 @@ style_html = """
             font-weight: bold;
             font-size: 16px;
         }
+        [data-testid=stSidebar] [data-testid=stImage]{
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
     </style>
+
 """
 
 # Render the HTML in Streamlit to apply CSS styling
@@ -144,8 +154,12 @@ audio_file = st.file_uploader("Upload an audio file (MP3, WAV, OGG)", type=["mp3
 if audio_file is not None:
     # Save the uploaded audio file to the "audio_uploads" folder
     with open(os.path.join("audio_uploads", audio_file.name), "wb") as f:
-        audio_bytes = audio_file.read()
-        f.write(audio_bytes)
+        audio_data = audio_file.read()
+        # url = 'https://phoneme-service-wifbxua65a-ew.a.run.app'
+        url = "http://localhost:8000/predict_for_real"
+        request = requests.post(url,  files = {"sound":audio_data})
+        prediction = json.loads(request.text)['result']
+        f.write(audio_data)
     st.success(f"Uploaded {audio_file.name} to 'audio_uploads' folder.")
 
     # Generate the spectrogram
@@ -161,25 +175,6 @@ if audio_file is not None:
     plt.tight_layout()
 
 
-    #---------------------------------------------------------
-
-
-    url = 'https://phoneme-service-wifbxua65a-ew.a.run.app'
-    request = requests.post(url, files = {"bytes":audio_bytes})
-
-
-
-
-    #---------------------------------------------------------
-
-
-
-
-    # Perform the emotion prediction here and store it in the 'prediction' variable
-    # Replace this with your actual prediction logic.
-    prediction = "ANG"
-
-    # Call the prediction_emotion_feedback function based on the prediction
     if prediction in emotions:
         prediction_emotion_feedback(prediction)
 
