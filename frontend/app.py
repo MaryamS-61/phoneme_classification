@@ -71,12 +71,12 @@ def zero_padding(data):
 
 # Define the emotions dictionary at the global level
 emotions = {
-    "ANG": ("Anger 😡", "angry.gif"),  # Add the path to your angry emoji GIF
-    "DIS": ("Disgust 🤢", "disgust.gif"),  # Add the path to your disgust emoji GIF
-    "FEA": ("Fear 😱", "fear.gif"),  # Add the path to your fear emoji GIF
-    "HAP": ("Happiness 😀", "happy.gif"),  # Add the path to your happy emoji GIF
-    "NEU": ("Neutral 😐", "neutral.gif"),  # Add the path to your neutral emoji GIF
-    "SAD": ("Sadness 😭", "sad.gif")  # Add the path to your sad emoji GIF
+    "ANG": ("Anger 😡", "frontend/angry.gif"),  # Add the path to your angry emoji GIF
+    "DIS": ("Disgust 🤢", "frontend/disgust.gif"),  # Add the path to your disgust emoji GIF
+    "FEA": ("Fear 😱", "frontend/fear.gif"),  # Add the path to your fear emoji GIF
+    "HAP": ("Happiness 😀", "frontend/happy.gif"),  # Add the path to your happy emoji GIF
+    "NEU": ("Neutral 😐", "frontend/neutral.gif"),  # Add the path to your neutral emoji GIF
+    "SAD": ("Sadness 😭", "frontend/sad.gif")  # Add the path to your sad emoji GIF
 }
 
 # Define the HTML and CSS styling for the fixed header
@@ -169,7 +169,7 @@ original_width = 800
 half_width = original_width // 5
 
 # Create a centered sidebar
-st.sidebar.image("lewagon.png", width=half_width)
+st.sidebar.image("frontend/lewagon.png", width=half_width)
 
 
 # List of dummy names
@@ -228,7 +228,7 @@ if audio_file is not None:
         cnn_input = zero_padding(normalized_spectrogram)
 
         # load model
-        model = load_model("first_cnn_model_maryam.h5")
+        model = load_model("frontend/first_cnn_model_maryam.h5")
         x = np.expand_dims(cnn_input, axis=0)
 
         # predict
