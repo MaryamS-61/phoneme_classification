@@ -2,7 +2,7 @@ pytest
 pylint
 ipdb
 jupyterlab
-numpy 1.25.0
+numpy
 pandas
 matplotlib
 seaborn
@@ -11,5 +11,5 @@ uvicorn
 fastapi
 google-cloud-storage
 librosa
-librosa.display
 requests
+tensorflow
