@@ -147,14 +147,20 @@ sidebar_html = """
 # Define the prediction_emotion_feedback function
 def prediction_emotion_feedback(prediction):
     if prediction in emotions:
-        emotion_name, emoji_path = emotions[prediction]
-        st.write("The detected emotion in the audio is:", emotion_name)
 
         # Display the spectrogram using Matplotlib
-        st.pyplot(plt)
+        # st.pyplot(plt)
 
-        # Display the emoji and emotion name in the fixed sidebar
-        st.sidebar.image(emoji_path, caption=emotion_name, use_column_width=True, output_format='auto')
+        if predict_button:
+            emotion_name, emoji_path = emotions[prediction]
+            st.write("The detected emotion in the audio is:")
+
+            # Display emotion in big
+            styled_emotion = f"<div style='text-align: center; color: black;'><h1>{emotion_name}</h1></div>"
+            st.markdown(styled_emotion, unsafe_allow_html=True)
+
+            # Display the emoji and emotion name in the fixed sidebar
+            st.sidebar.image(emoji_path, caption=emotion_name, use_column_width=True, output_format='auto')
 
 # Render the HTML in Streamlit
 st.markdown(header_html, unsafe_allow_html=True)
@@ -217,6 +223,7 @@ if audio_file is not None:
     # Save the uploaded audio file to the "audio_uploads" folder
     with open(os.path.join("audio_uploads", audio_file.name), "wb") as f:
         audio_data = audio_file.read()
+
         # url = 'https://phoneme-service-wifbxua65a-ew.a.run.app'
         #url = "http://localhost:8000/predict_for_real"
         #request = requests.post(url,  files = {"sound":audio_data})
@@ -237,7 +244,7 @@ if audio_file is not None:
         prediction = classes[np.argmax(y_pred[0])]
 
         f.write(audio_data)
-    st.success(f"Uploaded {audio_file.name} to 'audio_uploads' folder.")
+    st.success(f"✅ Uploaded {audio_file.name} to 'audio_uploads' folder.")
 
     # Generate the spectrogram
     audio_path = os.path.join("audio_uploads", audio_file.name)
@@ -251,6 +258,10 @@ if audio_file is not None:
     plt.title('Spectrogram')
     plt.tight_layout()
 
+    # Display the spectrogram using Matplotlib
+    st.pyplot(plt)
+
+    predict_button = st.button('Predict')
 
     if prediction in emotions:
         prediction_emotion_feedback(prediction)
