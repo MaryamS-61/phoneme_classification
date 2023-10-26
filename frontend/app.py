@@ -109,7 +109,7 @@ header_html = """
         }
     </style>
     <div class="header-container">
-        <h1 class="header-title">Emotion Speech Recognition</h1>
+        <h1 class="header-title">Speech Emotion Detection</h1>
         <h3 class="header-subtitle">Data Science Le Wagon Bootcamp Part-time</h3>
     </div>
 """
@@ -173,7 +173,7 @@ st.sidebar.image("frontend/lewagon.png", width=half_width)
 
 
 # List of dummy names
-names = ["Maryam Sadreddini", "Sina Naghizadeh", "Anna Snizhko", "Martin Jahr"]
+names = ["Maryam Sadreddini", "Sina N. Kashani", "Anna Snizhko", "Martin Jahr"]
 
 # Define the HTML and CSS styling for centering, making names bold, and increasing font size
 style_html = """
